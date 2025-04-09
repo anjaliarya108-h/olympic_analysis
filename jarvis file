@@ -1,0 +1,23 @@
+import speech_recognition as sr
+import win32com.client as pywin
+
+def say(str):
+    speaker = pywin.Dispatch("SAPI.SpVoice")
+    speaker.Speak(str)
+
+#say("wohoo")
+
+r = sr.Recognizer()
+def listen():
+    try:
+        with sr.Microphone() as mic:
+            print("Listening You...")
+            audio = r.listen(mic)
+            text = r.recognize_google(audio)
+            # print(text)
+            return text.lower()
+    except ValueError:
+        print("Say Something")
+    except Exception:
+        print("Please repeat that again!!")
+
